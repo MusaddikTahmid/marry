@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Marry Me?</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        font-family: Arial, sans-serif;
+        color: #333;
+        overflow: hidden;
+      }
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        animation: fadeIn 1s ease;
+        position: relative;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .card h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #ff5c8a;
+        font-weight: bold;
+      }
+      .heart {
+        color: #ff5c8a;
+        font-size: 3rem;
+        animation: heartbeat 1.5s infinite;
+      }
+      @keyframes heartbeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 30px;
+        position: relative;
+      }
+      .btn {
+        padding: 12px 24px;
+        font-size: 1em;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn-yes {
+        background-color: #28a745;
+        color: #fff;
+      }
+      .btn-yes:hover {
+        background-color: #218838;
+      }
+      .btn-no {
+        background-color: #dc3545;
+        color: #fff;
+        position: absolute;
+      }
+      .btn-no:hover {
+        background-color: #c82333;
+      }
+      .thank-you-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #ff5c8a;
+        display: none;
+      }
+      /* Responsive Adjustments */
+      @media (max-width: 400px) {
+        .card h1 {
+          font-size: 1.5em;
+        }
+        .btn {
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="heart">❤️</div>
+      <h1>Will you marry me?</h1>
+      <div class="buttons">
+        <button class="btn btn-yes" onclick="showThankYouMessage()">Yes</button>
+        <button class="btn btn-no" id="noBtn">No</button>
+      </div>
+      <div class="thank-you-message" id="thankYouMessage">
+        Thank you, and I love you! ❤️
+      </div>
+    </div>
+
+    <script>
+      const noBtn = document.getElementById("noBtn");
+      const thankYouMessage = document.getElementById("thankYouMessage");
+
+      // Move the "No" button to a random position on hover within the card
+      noBtn.addEventListener("mouseover", () => {
+        const card = noBtn.closest(".card");
+        const cardWidth = card.clientWidth;
+        const cardHeight = card.clientHeight;
+
+        const btnWidth = noBtn.clientWidth;
+        const btnHeight = noBtn.clientHeight;
+
+        // Calculate random positions within the card bounds
+        const randomX = Math.random() * (cardWidth - btnWidth - 20); // Leave padding for edges
+        const randomY = Math.random() * (cardHeight - btnHeight - 100); // Leave space for text and buttons
+
+        // Set the new position without changing the button's shape or size
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+      });
+
+      // Show thank-you message when "Yes" button is clicked
+      function showThankYouMessage() {
+        thankYouMessage.style.display = "block";
+      }
+    </script>
+  </body>
+</html>
