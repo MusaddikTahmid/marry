@@ -43,7 +43,7 @@
       }
       .card h1 {
         font-size: 2em;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         color: #ff5c8a;
         font-weight: bold;
       }
@@ -63,9 +63,9 @@
       }
       .buttons {
         display: flex;
-        justify-content: center;
-        gap: 30px;
+        justify-content: space-between;
         margin-top: 30px;
+        padding: 0 20px;
         position: relative;
       }
       .btn {
@@ -86,7 +86,7 @@
       .btn-no {
         background-color: #dc3545;
         color: #fff;
-        position: absolute;
+        position: relative;
       }
       .btn-no:hover {
         background-color: #c82333;
@@ -117,7 +117,12 @@
       <div class="heart">❤️</div>
       <h1>Will you marry me?</h1>
       <div class="buttons">
-        <button class="btn btn-yes" onclick="showThankYouMessage()">Yes</button>
+        <button
+          class="btn btn-yes"
+          onclick="window.location.href='thankyou.html'"
+        >
+          Yes
+        </button>
         <button class="btn btn-no" id="noBtn">No</button>
       </div>
       <div class="thank-you-message" id="thankYouMessage">
@@ -127,30 +132,25 @@
 
     <script>
       const noBtn = document.getElementById("noBtn");
-      const thankYouMessage = document.getElementById("thankYouMessage");
 
       // Move the "No" button to a random position on hover within the card
       noBtn.addEventListener("mouseover", () => {
         const card = noBtn.closest(".card");
-        const cardWidth = card.clientWidth;
-        const cardHeight = card.clientHeight;
+        const cardRect = card.getBoundingClientRect();
 
-        const btnWidth = noBtn.clientWidth;
-        const btnHeight = noBtn.clientHeight;
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
 
-        // Calculate random positions within the card bounds
-        const randomX = Math.random() * (cardWidth - btnWidth - 20); // Leave padding for edges
-        const randomY = Math.random() * (cardHeight - btnHeight - 100); // Leave space for text and buttons
+        // Calculate random positions within the card bounds for the "No" button
+        const randomX = Math.random() * (cardRect.width - btnWidth - 40); // Leaving padding for edges
+        const randomY =
+          Math.random() * (cardRect.height - btnHeight - 120) + 60; // Leaving padding for text and top
 
         // Set the new position without changing the button's shape or size
+        noBtn.style.position = "absolute";
         noBtn.style.left = `${randomX}px`;
         noBtn.style.top = `${randomY}px`;
       });
-
-      // Show thank-you message when "Yes" button is clicked
-      function showThankYouMessage() {
-        thankYouMessage.style.display = "block";
-      }
     </script>
   </body>
 </html>
